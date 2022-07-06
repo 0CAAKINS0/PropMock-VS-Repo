@@ -138,7 +138,7 @@ namespace PropMockModels
         public enum Status
         {
             Canceled = 0,
-            Open = 1,
+            New = 1,
             Assigned = 2,
             Processing = 3,
             Waiting = 4,

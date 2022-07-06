@@ -34,18 +34,18 @@ namespace PropMockModels
         public int productId { get; set; }
         public Product Product { get; set; }
 
-        public LienSearch(string street, string zip, string county, string city, string state, string parcel, bool refinance, bool vacant, bool commercial, DateTime closingDate, DateTime needByDate, bool rush, string? additionalComments, string ownerName, string? buyerName, string? addressTwo, string? legalDescription, string? additionalContactEmail, string? clientfilenumber, Researcher? assignedResearcher, bool Code, bool Permit, bool Tax, bool Utility, bool SpecialAssessments) 
+        public LienSearch(string street, string zip, string county, string city, States state, string parcel, bool refinance, bool vacant, bool commercial, DateTime closingDate, DateTime needByDate, bool rush, string? additionalComments, string ownerName, string? buyerName, string? addressTwo, string? legalDescription, string? additionalContactEmail, string? clientfilenumber, Researcher? assignedResearcher, bool Code, bool Permit, bool Tax, bool Utility, bool SpecialAssessments) 
             :base(street, zip, county, city, state, parcel, refinance, vacant, commercial, closingDate, needByDate, rush, additionalComments, ownerName, buyerName, addressTwo, legalDescription, additionalContactEmail, clientfilenumber, assignedResearcher) 
         { }
 
-        public virtual LienSearch EditOrder(string? Street, string? Zip, string? County, string? Parcel, string? City, States? State, DateTime? ClosingDate, DateTime? NeedByDate, bool? Rush, string? AdditionalComments, string? OwnerName, string? BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, bool? Refinance, bool? Commercial, bool? Vacant, Researcher? researcher, bool Code, bool Permit, bool Tax, bool Utility, bool SpecialAssessments)
+        public virtual LienSearch EditOrder(string Street, string Zip, string County, string Parcel, string City, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string AdditionalComments, string OwnerName, string BuyerName, string AddressTwo, string clientNumber, string additionalContactEmail, string legalDescription, bool Refinance, bool Commercial, bool Vacant, Researcher researcher, bool? Code, bool? Permit, bool? Tax, bool? Utility, bool? SpecialAssessments)
         {
             var update = (LienSearch)base.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, clientNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher);
             if (Code != null) { update.Code = (bool)Code; }
             if (Permit != null)
             {
                 update.Permit = (bool)Permit;
-                if (update.Permit == false) { update.Product.ProductType = 2; } else { update.Product.ProductType = 1; }
+                if (update.Permit == false) { update.Product.ProductType = (OrderType)2; } else { update.Product.ProductType = (OrderType)1; }
             }
             if (Tax != null) { update.Tax = (bool)Tax; }
             if (Utility != null) { update.Utility = (bool)Utility; }

@@ -18,11 +18,13 @@ namespace PropMockModels
         
         [StringLength(100, ErrorMessage = "The value of this field is limited to 100 characters")]
         public string? OwnerEmail { get; set; }
+        [StringLength(100, ErrorMessage = "The value of this field is limited to 100 characters")]
+        public string? BuyerEmail { get; set; }
         [ForeignKey("Product")]
         public int productId { get; set; }
         public Product Product { get; set; }
 
-        public ReleaseTracking(string street, string zip, string county, string city, string state, string parcel, bool refinance, bool vacant, bool commercial, DateTime closingDate, DateTime needByDate, bool rush, string? additionalComments, string ownerName, string? buyerName, string? addressTwo, string? legalDescription, string? additionalContactEmail, string? clientfilenumber, Researcher? assignedResearcher, string? OwnerEmail)
+        public ReleaseTracking(string street, string zip, string county, string city, States state, string parcel, bool refinance, bool vacant, bool commercial, DateTime closingDate, DateTime needByDate, bool rush, string? additionalComments, string ownerName, string? buyerName, string? addressTwo, string? legalDescription, string? additionalContactEmail, string? clientfilenumber, Researcher? assignedResearcher, string? OwnerEmail, string? BuyerEmail)
             : base(street, zip, county, city, state, parcel, refinance, vacant, commercial, closingDate, needByDate, rush, additionalComments, ownerName, buyerName, addressTwo, legalDescription, additionalContactEmail, clientfilenumber, assignedResearcher)
         { }
     }
