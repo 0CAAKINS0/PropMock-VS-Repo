@@ -20,6 +20,11 @@ namespace PropMockModels
         [ForeignKey("Order")]
         public int orderNumber { get; set; }
         public Order Order { get; set; }
+        public LienSearch? Lien { get; set; }
+        public Estoppel? Estoppel { get; set; }
+        public Tax? Tax { get; set; }
+        public ReleaseTracking? RT { get; set; }
+        public CurativeServices? CS { get; set; }
 
         public Product(OrderType productType)
         {

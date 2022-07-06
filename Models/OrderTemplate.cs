@@ -30,7 +30,7 @@ namespace PropMockModels
         public string? Clientfilenumber { get; set; }
         public Researcher? AssignedResearcher { get; set; }
         public string? OwnerEmail { get; set; }
-        public OrderTemplate(string street, string zip, string county, string city, string state, string parcel, bool refinance, bool vacant, bool commercial, DateTime closingDate, DateTime needByDate, bool rush, string? additionalComments, string ownerName, string? buyerName, string? addressTwo, string? legalDescription, string? additionalContactEmail, string? clientfilenumber, Researcher? assignedResearcher, string? ownerEmail)
+        public OrderTemplate(string street, string zip, string county, string city, string state, string parcel, bool refinance, bool vacant, bool commercial, DateTime closingDate, DateTime needByDate, bool rush, string? additionalComments, string ownerName, string? buyerName, string? addressTwo, string? legalDescription, string? additionalContactEmail, string? clientfilenumber, Researcher? assignedResearcher)
         {
             this.Street = street;
             this.Zip = zip;
@@ -52,7 +52,6 @@ namespace PropMockModels
             this.AdditionalContactEmail = additionalContactEmail;
             this.Clientfilenumber = clientfilenumber;
             this.AssignedResearcher = assignedResearcher;
-            this.OwnerEmail = ownerEmail;
 
         }
     }
