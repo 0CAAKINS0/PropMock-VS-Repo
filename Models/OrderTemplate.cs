@@ -90,26 +90,46 @@ namespace PropMockModels
         public virtual OrderTemplate EditOrder(string? Street, string? Zip, string? County, string? Parcel, string? City, States? State, DateTime? ClosingDate, DateTime? NeedByDate, bool? Rush, string? AdditionalComments, string? OwnerName, string? BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, bool? Refinance, bool? Commercial, bool? Vacant, Researcher? researcher)
         {
             this.Street = Street ?? this.Street;
+            this.AddressTwo = AddressTwo ?? this.AddressTwo;
+            this.City = City ?? this.City;
+            this.Zip = Zip ?? this.Zip;
+            this.State = State ?? this.State;
+            this.Parcel = Parcel ?? this.Parcel;
+            this.ClosingDate = ClosingDate ?? this.ClosingDate;
+            this.NeedByDate = NeedByDate ?? this.NeedByDate;
+            this.Rush = Rush ?? this.Rush;
+            this.AdditionalComments = AdditionalComments ?? this.AdditionalComments;
+            this.OwnerName = OwnerName ?? this.OwnerName;
+            this.BuyerName = BuyerName ?? this.BuyerName;
+            this.AddressTwo = AddressTwo ?? this.AddressTwo;
+            this.Clientfilenumber = Clientfilenumber ?? this.Clientfilenumber;
+            this.AdditionalContactEmail = AdditionalContactEmail ?? this.AdditionalContactEmail;
+            this.LegalDescription = LegalDescription ?? this.LegalDescription;
+            this.Refinance = Refinance ?? this.Refinance;
+            this.Commercial = Commercial ?? this.Commercial;
+            this.Vacant = Vacant ?? this.Vacant;
+            this.AssignedResearcher = researcher ?? this.AssignedResearcher;
+
             //if (Street != null) { this.Street = Street; }
-            if (Zip != null) { this.Zip = Zip; }
-            if (County != null) { this.County = County; }
-            if (Parcel != null) { this.Parcel = Parcel; }
-            if (City != null) { this.City = City; }
-            if (State != null) { this.State = (States)State; }
-            if (ClosingDate != null) { this.ClosingDate = (DateTime)ClosingDate; }
-            if (NeedByDate != null) { this.NeedByDate = (DateTime)NeedByDate; }
-            if (Rush != null) { this.Rush = (bool)Rush; }
-            if (AdditionalComments != null) { this.AdditionalComments = AdditionalComments; }
-            if (OwnerName != null) { this.OwnerName = OwnerName; }
-            if (BuyerName != null) { this.BuyerName = BuyerName; }
-            if (AddressTwo != null) { this.AddressTwo = AddressTwo; }
-            if (Clientfilenumber != null) { this.Clientfilenumber = Clientfilenumber; }
-            if (AdditionalContactEmail != null) { this.AdditionalContactEmail = AdditionalContactEmail; }
-            if (LegalDescription != null) { this.LegalDescription = LegalDescription; }
-            if (Refinance != null) { this.Refinance = (bool)Refinance; }
-            if (Commercial != null) { this.Commercial = (bool)Commercial; }
-            if (Vacant != null) { this.Vacant = (bool)Vacant; }
-            if(researcher != null) { this.AssignedResearcher = researcher; }
+            //if (Zip != null) { this.Zip = Zip; }
+            //if (County != null) { this.County = County; }
+            //if (Parcel != null) { this.Parcel = Parcel; }
+            //if (City != null) { this.City = City; }
+            //if (State != null) { this.State = (States)State; }
+            //if (ClosingDate != null) { this.ClosingDate = (DateTime)ClosingDate; }
+            //if (NeedByDate != null) { this.NeedByDate = (DateTime)NeedByDate; }
+            //if (Rush != null) { this.Rush = (bool)Rush; }
+            //if (AdditionalComments != null) { this.AdditionalComments = AdditionalComments; }
+            //if (OwnerName != null) { this.OwnerName = OwnerName; }
+            //if (BuyerName != null) { this.BuyerName = BuyerName; }
+            //if (AddressTwo != null) { this.AddressTwo = AddressTwo; }
+            //if (Clientfilenumber != null) { this.Clientfilenumber = Clientfilenumber; }
+            //if (AdditionalContactEmail != null) { this.AdditionalContactEmail = AdditionalContactEmail; }
+            //if (LegalDescription != null) { this.LegalDescription = LegalDescription; }
+            //if (Refinance != null) { this.Refinance = (bool)Refinance; }
+            //if (Commercial != null) { this.Commercial = (bool)Commercial; }
+            //if (Vacant != null) { this.Vacant = (bool)Vacant; }
+            //if(researcher != null) { this.AssignedResearcher = researcher; }
 
             return this;
         }

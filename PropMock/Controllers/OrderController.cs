@@ -35,153 +35,152 @@ namespace PropMock.Controllers
                 .Include(p => p.Tax)
                 .Include(p => p.CS)
                 .Include(p => p.RT)
+                .Include(p => p.Order)
                 .Where(o => o.filenumber == filenumber)
                 .FirstOrDefaultAsync();
-            if (product == null) { return NotFound(); }
-            else if ((int)product.ProductType == 1 || (int)product.ProductType == 2) { return View("DisplayLSDetails", product); }
-            //else if ((int)product.ProductType == 1 || (int)this.ProductType == 2) { return "File #: " + this.filenumber + "    Product Type: " + this.ProductType.ToString().Replace("_", " ") + "    Property Address: " + this.Lien.Street + " " + this.Lien.City + " " + this.Lien.State + ", " + this.Lien.Zip + "    Order Status:   " + this.OrderStatus; }
-            //else if ((int)product.ProductType == 3) { return "File #: " + this.filenumber + "    Product Type: " + this.ProductType.ToString().Replace("_", " ") + "    Property Address: " + this.Estoppel.Street + " " + this.Estoppel.City + " " + this.Estoppel.State + ", " + this.Estoppel.Zip + "    Order Status:   " + this.OrderStatus; }
-            //else if ((int)product.ProductType == 4 || (int)this.ProductType == 5 || (int)this.ProductType == 6) { return "File #: " + this.filenumber + "    Product Type: " + this.ProductType.ToString().Replace("_", " ") + "    Property Address: " + this.Tax.Street + " " + this.Tax.City + " " + this.Tax.State + ", " + this.Tax.Zip + "    Order Status:   " + this.OrderStatus; }
-            //else if ((int)product.ProductType == 7) { return "File #: " + this.filenumber + "    Product Type: " + this.ProductType.ToString().Replace("_", " ") + "    Property Address: " + this.RT.Street + " " + this.RT.City + " " + this.RT.State + ", " + this.RT.Zip + "    Order Status:   " + this.OrderStatus; }
-            //else if ((int)product.ProductType == 8) { return "File #: " + this.filenumber + "    Product Type: " + this.ProductType.ToString().Replace("_", " ") + "    Property Address: " + this.CS.Street + " " + this.CS.City + " " + this.CS.State + ", " + this.CS.Zip + "    Order Status:   " + this.OrderStatus; }
-            else { return NotFound(); }
-            //if (product == null) { return NotFound(); }
 
-            //return View(product);
+            if (product == null) { return NotFound(); }
+            else if ((int)product.ProductType == 1 || (int)product.ProductType == 2) { return View("DisplayLSProductDetails", product); }
+            else if ((int)product.ProductType == 3) { return View("DisplayESProductDetails", product); }
+            else if ((int)product.ProductType == 3) { return View("DisplayESProductDetails", product); }
+            else if ((int)product.ProductType == 4 || (int)product.ProductType == 5 || (int)product.ProductType == 6) { return View("DisplayTaxProductDetails", product); }
+            else if ((int)product.ProductType == 7) { return View("DisplayRTProductDetails", product); }
+            else if ((int)product.ProductType == 8) { return View("DisplayCSProductDetails", product); }
+            else { return NotFound(); }
         }
 
 
         //Create Lien Search Order
         [HttpPost("NewLienSearchOrder")]
-        public async Task<string> OrderLienSearch(string Street, string Zip, string County, string Parcel, string City, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string? BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Code = true, bool Permit = true, bool Tax = true, bool Utility = true, bool SpecialAssessments = true, bool Refinance = false, bool Vacant = false, bool Commercial = false)
+        public async Task<IActionResult> OrderLienSearch(string Street, string? AddressTwo, string City, string Zip, string County, string Parcel, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string? BuyerName, string? ClientFileNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Code = true, bool Permit = true, bool Tax = true, bool Utility = true, bool SpecialAssessments = true, bool Refinance = false, bool Vacant = false, bool Commercial = false)
         {
-            int productType;
-            if (!Permit){ productType = 2; } else { productType = 1; }
+            int productType = Permit ? 1 : 2;
+            //if (!Permit){ productType = 2; } else { productType = 1; }
             var product = new Product((OrderType)productType, (Status)1);
-            var order = new Order(userId) { Clientfilenumber = clientNumber };
-            var ls = new LienSearch(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, (DateTime)ClosingDate, (DateTime)NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, clientNumber, (Researcher)0, Code, Permit, Tax, Utility, SpecialAssessments) { Product = product };
+            var order = new Order(userId) { Clientfilenumber = ClientFileNumber };
+            var ls = new LienSearch(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, (DateTime)ClosingDate, (DateTime)NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0, Code, Permit, Tax, Utility, SpecialAssessments) { Product = product };
 
             product.Lien = ls;
             order.Products.Add(product);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            return "Your lien search order for " + Street + " has been placed! File # " + product.filenumber;
+            return View("DisplayLSFullDetails", product);
         }
 
         // Create Estoppel Order
         [HttpPost("NewEstoppelOrder")]
-        public async Task<ActionResult<string>> OrderEstoppelSearch(string Street, string Zip, string County, string Parcel, string City, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Vacant = false, bool Commercial = false, bool Refinance = false)
+        public async Task<IActionResult> OrderEstoppelSearch(string Street, string? AddressTwo, string City, string Zip, string County, string Parcel,  States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string? BuyerName, string? ClientFileNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Vacant = false, bool Commercial = false, bool Refinance = false)
         {
             var product = new Product((OrderType)3, (Status)1);
-            var order = new Order(userId){ Clientfilenumber = clientNumber };
-            var es = new Estoppel(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, clientNumber, (Researcher)0) { Product = product };
+            var order = new Order(userId){ Clientfilenumber = ClientFileNumber };
+            var es = new Estoppel(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0) { Product = product };
 
             product.Estoppel = es;
             order.Products.Add(product);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            return "Your estoppel order for " + Street + " has been placed! File # " + product.filenumber;
+            return View("DisplayESFullDetails", product);
         }
 
         // Create Tax Cert Order
         [HttpPost("NewTaxOrder")]
-        public async Task<ActionResult<string>> OrderTaxSearch(TaxOrderType TCType , string Street, string Zip, string County, string Parcel, string City, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Refinance = false, bool Vacant = false, bool Commercial = false)
+        public async Task<ActionResult<string>> OrderTaxSearch(TaxOrderType TCType , string Street, string? AddressTwo, string City, string Zip, string County, string Parcel, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string? BuyerName, string? ClientFileNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Refinance = false, bool Vacant = false, bool Commercial = false)
         {
             var product = new Product((OrderType)TCType, (Status)1);
-            var order = new Order(userId) { Clientfilenumber = clientNumber };
-            var tc = new Tax(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, clientNumber, (Researcher)0) { Product = product };
+            var order = new Order(userId) { Clientfilenumber = ClientFileNumber };
+            var tc = new Tax(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0) { Product = product };
 
             product.Tax = tc;
             order.Products.Add(product);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            return "Your tax cert order for " + Street + " has been placed! File # " + product.filenumber;
+            return View("DisplayTaxFullDetails", product);
         }
 
         // Create Release Tracking Order
         [HttpPost("NewReleaseTrackingOrder")]
-        public async Task<ActionResult<string>> OrderReleaseTracking(string Street, string Zip, string County, string Parcel, string City, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string? OwnerEmail, string? BuyerName, string? BuyerEmail, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Refinance = false, bool Vacant = false, bool Commercial = false)
+        public async Task<IActionResult> OrderReleaseTracking(string Street, string? AddressTwo, string City, string Zip, string County, string Parcel, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string? OwnerEmail, string? BuyerName, string? BuyerEmail, string? ClientFileNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Refinance = false, bool Vacant = false, bool Commercial = false)
         {
             var product = new Product((OrderType)7, (Status)1);
-            var order = new Order(userId) { Clientfilenumber = clientNumber };
-            var rt = new ReleaseTracking(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, clientNumber, (Researcher)0, OwnerEmail, BuyerEmail) { Product = product };
+            var order = new Order(userId) { Clientfilenumber = ClientFileNumber };
+            var rt = new ReleaseTracking(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0, OwnerEmail, BuyerEmail) { Product = product };
 
             product.RT = rt;
             order.Products.Add(product);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            return "Your release tracking order for " + Street + " has been placed! File # " + product.filenumber;
+            return View("DisplayRTFullDetails", product);
         }
 
         // Creating Curative Services Order
         [HttpPost("NewCurativeServicesOrder")]
-        public async Task<ActionResult<string>> OrderCurativeServices(string Street, string Zip, string County, string Parcel, string City, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string? OwnerEmail, string? BuyerName, string? BuyerEmail, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Refinance = false, bool Vacant = false, bool Commercial = false)
+        public async Task<IActionResult> OrderCurativeServices(string Street, string? AddressTwo, string City, string Zip, string County, string Parcel, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string? OwnerEmail, string? BuyerName, string? BuyerEmail, string? ClientFileNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Refinance = false, bool Vacant = false, bool Commercial = false)
         {
             var product = new Product((OrderType)8, (Status)1);
-            var order = new Order(userId) { Clientfilenumber = clientNumber };
-            var cs = new CurativeServices(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, clientNumber, (Researcher)0, OwnerEmail, BuyerEmail) { Product = product };
+            var order = new Order(userId) { Clientfilenumber = ClientFileNumber };
+            var cs = new CurativeServices(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0, OwnerEmail, BuyerEmail) { Product = product };
 
             product.CS = cs;
             order.Products.Add(product);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            return "Your curative services order for " + Street + " has been placed! File # " + product.filenumber;
+            return View("DisplayCSFullDetails", product);
         }
 
         // Update Order
         [HttpPost("Edit/{filenumber}")]
-        public async Task<string> UpdateOrder(int filenumber, string? Street, string? Zip, string? County, string? Parcel, string? City, States? State, DateTime? ClosingDate, DateTime? NeedByDate, bool? Rush, string? AdditionalComments, string? OwnerName, string? BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, bool? Code, bool? Permit, bool? Tax, bool? Utility, bool? SpecialAssessments, bool? Refinance, bool? Commercial, string? OwnerEmail, string? BuyerEmail, bool? Vacant, Researcher? researcher)
+        public async Task<IActionResult> UpdateOrder(int filenumber, string? Street, string? AddressTwo, string? City, string? Zip, string? County, string? Parcel, States? State, DateTime? ClosingDate, DateTime? NeedByDate, bool? Rush, string? AdditionalComments, string? OwnerName, string? BuyerName, string? ClientFileNumber, string? additionalContactEmail, string? legalDescription, bool? Code, bool? Permit, bool? Tax, bool? Utility, bool? SpecialAssessments, bool? Refinance, bool? Commercial, string? OwnerEmail, string? BuyerEmail, bool? Vacant, Researcher? researcher)
         {
             var product = _context.Products.Include(p => p.Lien).Include(p => p.Estoppel).Include(p => p.Tax).Include(p => p.CS).Include(p => p.RT).Where(o => o.filenumber == filenumber).FirstOrDefault();
             if ((int)product.ProductType == 1 || (int)product.ProductType == 2)
             {
-                product.Lien = (LienSearch)product.Lien.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, clientNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher, Code, Permit, Tax, Utility, SpecialAssessments);
+                product.Lien = (LienSearch)product.Lien.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, ClientFileNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher, Code, Permit, Tax, Utility, SpecialAssessments);
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
-                return "File # " + product.filenumber + " has been updated successfully!";
+                return View("DisplayLSFullDetails", product);
             }
             else if((int)product.ProductType == 3)
             {
-                product.Estoppel = (Estoppel)product.Estoppel.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, clientNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher);
+                product.Estoppel = (Estoppel)product.Estoppel.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, ClientFileNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher);
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
-                return "File # " + product.filenumber + " has been updated successfully!";
+                return View("DisplayESFullDetails", product);
             }
             else if ((int)product.ProductType == 4 || (int)product.ProductType == 5 || (int)product.ProductType == 6)
             {
-                product.Tax = (Tax)product.Tax.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, clientNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher);
+                product.Tax = (Tax)product.Tax.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, ClientFileNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher);
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
-                return "File # " + product.filenumber + " has been updated successfully!";
+                return View("DisplayTaxFullDetails", product);
             }
             else if((int)product.ProductType == 7)
             {
-                product.RT = (ReleaseTracking)product.RT.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, clientNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher, BuyerEmail, OwnerEmail);
+                product.RT = (ReleaseTracking)product.RT.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, ClientFileNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher, BuyerEmail, OwnerEmail);
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
-                return "File # " + product.filenumber + " has been updated successfully!";
+                return View("DisplayRTFullDetails", product);
             }
             else if((int)product.ProductType == 8)
             {
-                product.CS = (CurativeServices)product.CS.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, clientNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher, BuyerEmail, OwnerEmail);
+                product.CS = (CurativeServices)product.CS.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, ClientFileNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher, BuyerEmail, OwnerEmail);
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
-                return "File # " + product.filenumber + " has been updated successfully!";
+                return View("DisplayRTFullDetails", product);
             }
             else
             {
-                return "File could not be found.";
+                return NotFound();
             }
         }
 
         // Cancel Order
         [HttpPost("CancelOrder/{filenumber}")]
-        public async Task<String> Cancelorder(int filenumber)
+        public async Task<IActionResult> Cancelorder(int filenumber)
         {
             var product = _context.Products.Where(o => o.filenumber == filenumber).FirstOrDefault();
             if (product != null)
@@ -189,14 +188,14 @@ namespace PropMock.Controllers
                 product.OrderStatus = 0;
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
-                return "File # " + product.filenumber + " has been canceled!";
+                return View("DisplayProductDetails");
             }
-            else { return "File number could not be found."; }
+            else { return NotFound(); }
         }
 
         // Un-Cancel Order
         [HttpPost("UnCancelOrder/{filenumber}")]
-        public async Task<String> UnCancelorder(int filenumber)
+        public async Task<IActionResult> UnCancelorder(int filenumber)
         {
             var product = _context.Products.Where(o => o.filenumber == filenumber).FirstOrDefault();
             if(product != null)
@@ -204,23 +203,23 @@ namespace PropMock.Controllers
                 product.OrderStatus = (Status)1;
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
-                return "File # " + product.filenumber + " has been un-canceled!";
+                return View("DisplayProductDetails");
             }
-            else { return "File number could not be found."; }
+            else { return NotFound(); }
         }
 
         // Delete Order
         [HttpDelete("delete/{filenumber}")]
-        public async Task<String> Delete(int filenumber)
+        public async Task<IActionResult> Delete(int filenumber)
         {
             var product = _context.Products.Include(p => p.Order).Where(o => o.filenumber == filenumber).FirstOrDefault();
             if(product != null) 
             {
                 _context.Products.Remove(product);           
                 await _context.SaveChangesAsync();
-                return "File # " + product.filenumber + " has been deleted!";
+                return View(product);
             }
-            else { return "File number could not be found."; }
+            else { return NotFound(); }
         }
 
     }

@@ -41,15 +41,19 @@ namespace PropMockModels
         public virtual LienSearch EditOrder(string? Street, string? Zip, string? County, string? Parcel, string? City, States? State, DateTime? ClosingDate, DateTime? NeedByDate, bool? Rush, string? AdditionalComments, string? OwnerName, string? BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, bool? Refinance, bool? Commercial, bool? Vacant, Researcher? researcher, bool? Code, bool? Permit, bool? Tax, bool? Utility, bool? SpecialAssessments)
         {
             var update = (LienSearch)base.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, clientNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher);
-            if (Code != null) { update.Code = (bool)Code; }
+            //if (Code != null) { update.Code = (bool)Code; }
+            this.Code = Code ?? this.Code;
+            this.Tax = Tax ?? this.Tax;
+            this.Utility = Utility ?? this.Utility;
+            this.SpecialAssessments = SpecialAssessments ?? this.SpecialAssessments;
             if (Permit != null)
             {
                 update.Permit = (bool)Permit;
                 if (update.Permit == false) { update.Product.ProductType = (OrderType)2; } else { update.Product.ProductType = (OrderType)1; }
             }
-            if (Tax != null) { update.Tax = (bool)Tax; }
-            if (Utility != null) { update.Utility = (bool)Utility; }
-            if (SpecialAssessments != null) { update.SpecialAssessments = (bool)SpecialAssessments; }
+            //if (Tax != null) { update.Tax = (bool)Tax; }
+            //if (Utility != null) { update.Utility = (bool)Utility; }
+            //if (SpecialAssessments != null) { update.SpecialAssessments = (bool)SpecialAssessments; }
             return update;
         }
     }

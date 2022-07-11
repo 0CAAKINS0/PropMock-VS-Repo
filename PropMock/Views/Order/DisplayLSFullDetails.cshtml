@@ -1,0 +1,181 @@
+﻿@model PropMockModels.Product
+
+@{
+    ViewData["Title"] = "DisplayLSFullDetails";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>@Model?.ProductType.ToString().Replace("_", " ") Order</h4>
+    <hr />
+    <dl class="row">
+        
+        <dt class = "col-sm-2">
+            File #
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.filenumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Street)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Street)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Zip)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Zip)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.County)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.County)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.City)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.City)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.State)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.State)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Parcel)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Parcel)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Refinance)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Refinance)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Vacant)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Vacant)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Commercial)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Commercial)
+        </dd>
+        <dt class = "col-sm-2">
+            Closing Date
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.ClosingDate)
+        </dd>
+        <dt class = "col-sm-2">
+            Need By Date
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.NeedByDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Rush)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Rush)
+        </dd>
+        <dt class = "col-sm-2">
+            Additional Comments
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.AdditionalComments)
+        </dd>
+        <dt class = "col-sm-2">
+            Owner Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.OwnerName)
+        </dd>
+        <dt class = "col-sm-2">
+            Buyer Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.BuyerName)
+        </dd>
+        <dt class = "col-sm-2">
+            Address Two
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.AddressTwo)
+        </dd>
+        <dt class = "col-sm-2">
+            Legal Description
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.LegalDescription)
+        </dd>
+        <dt class = "col-sm-2">
+            Additional Contact Email
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.AdditionalContactEmail)
+        </dd>
+        <dt class = "col-sm-2">
+            Client File #
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Clientfilenumber)
+        </dd>
+        <dt class = "col-sm-2">
+            Assigned Researcher
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.AssignedResearcher)
+        </dd>
+        <dt class = "col-sm-2">
+            Owner Email
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.OwnerEmail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Code)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Code)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Permit)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Permit)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Tax)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Tax)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien.Utility)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.Utility)
+        </dd>
+        <dt class = "col-sm-2">
+            Special Assessments
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien.SpecialAssessments)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.filenumber.">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

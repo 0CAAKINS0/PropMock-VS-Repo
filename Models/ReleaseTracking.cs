@@ -31,8 +31,10 @@ namespace PropMockModels
         public virtual ReleaseTracking EditOrder(string? Street, string? Zip, string? County, string? Parcel, string? City, States? State, DateTime? ClosingDate, DateTime? NeedByDate, bool? Rush, string? AdditionalComments, string? OwnerName, string? BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, bool? Refinance, bool? Commercial, bool? Vacant, Researcher? researcher, string? BuyerEmail, string? OwnerEmail)
         {
             var update = (ReleaseTracking)base.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, clientNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher);
-            if (BuyerEmail != null) { update.BuyerEmail = BuyerEmail; }
-            if (OwnerEmail != null) { update.OwnerEmail = OwnerEmail; }
+            this.BuyerEmail = BuyerEmail ?? this.BuyerEmail;
+            this.OwnerEmail = OwnerEmail ?? this.OwnerEmail;
+            //if (BuyerEmail != null) { update.BuyerEmail = BuyerEmail; }
+            //if (OwnerEmail != null) { update.OwnerEmail = OwnerEmail; }
             return update;
         }
     }

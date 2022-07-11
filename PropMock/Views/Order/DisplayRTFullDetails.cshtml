@@ -1,0 +1,156 @@
+﻿@model PropMockModels.Product
+
+@{
+    ViewData["Title"] = "DisplayRTFullDetails";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Release Tracking Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            File #
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.filenumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RT.Street)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.Street)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RT.Zip)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.Zip)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RT.County)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.County)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RT.City)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.City)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RT.State)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.State)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RT.Parcel)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.Parcel)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RT.Refinance)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.Refinance)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RT.Vacant)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.Vacant)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RT.Commercial)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.Commercial)
+        </dd>
+        <dt class = "col-sm-2">
+            Closing Date
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.ClosingDate)
+        </dd>
+        <dt class = "col-sm-2">
+            Need By Date
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.NeedByDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RT.Rush)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.Rush)
+        </dd>
+        <dt class = "col-sm-2">
+            Additional Comments
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.AdditionalComments)
+        </dd>
+        <dt class = "col-sm-2">
+            Owner Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.OwnerName)
+        </dd>
+        <dt class = "col-sm-2">
+            Buyer Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.BuyerName)
+        </dd>
+        <dt class = "col-sm-2">
+            Address Two
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.AddressTwo)
+        </dd>
+        <dt class = "col-sm-2">
+            Legal Description
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.LegalDescription)
+        </dd>
+        <dt class = "col-sm-2">
+            Additional Contact Email
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.AdditionalContactEmail)
+        </dd>
+        <dt class = "col-sm-2">
+            Client File #
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.Clientfilenumber)
+        </dd>
+        <dt class = "col-sm-2">
+            Assigned Researcher
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.AssignedResearcher)
+        </dd>
+        <dt class = "col-sm-2">
+            Owner Email
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.OwnerEmail)
+        </dd>
+        <dt class = "col-sm-2">
+            Buyer Email
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RT.BuyerEmail)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.filenumber">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

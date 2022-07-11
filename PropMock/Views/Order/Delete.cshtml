@@ -1,0 +1,39 @@
+﻿@model PropMockModels.Product
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>File Deleted</h1>
+
+<h3>File # @Html.DisplayFor(model => model.filenumber) has been removed!</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Product Type
+        </dt>
+        <dd class = "col-sm-10">
+            @Model?.ProductType.ToString().Replace("_", " ")
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderStatus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrderStatus)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Order)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.Clientfilenumber)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="filenumber" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

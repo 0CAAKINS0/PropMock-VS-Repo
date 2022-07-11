@@ -1,7 +1,7 @@
 ﻿@model PropMockModels.Product
 
 @{
-    ViewData["Title"] = "DisplayProductDetails";
+    ViewData["Title"] = "DisplayESProductDetails";
 }
 
 <h1>Product Details</h1>
@@ -11,10 +11,10 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.filenumber)
+            @Html.DisplayNameFor(model => model.Estoppel.Street)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.filenumber)
+            @Html.DisplayFor(model => model.Estoppel.Street)
         </dd>
         <dt class = "col-sm-2">
             Product Type
@@ -27,6 +27,12 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.OrderStatus)
+        </dd>
+        <dt class = "col-sm-2">
+            Client File #
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.Clientfilenumber)
         </dd>
     </dl>
 </div>
