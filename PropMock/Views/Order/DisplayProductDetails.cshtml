@@ -1,0 +1,36 @@
+﻿@model PropMockModels.Product
+
+@{
+    ViewData["Title"] = "DisplayProductDetails";
+}
+
+<h1>Product Details</h1>
+
+<div>
+    <h4>File # @Html.DisplayFor(model => model.filenumber)</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.filenumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.filenumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderStatus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrderStatus)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.filenumber">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -87,9 +87,10 @@ namespace PropMockModels
 
         }
 
-        public virtual OrderTemplate EditOrder(string Street, string Zip, string County, string Parcel, string City, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string AdditionalComments, string OwnerName, string BuyerName, string AddressTwo, string clientNumber, string additionalContactEmail, string legalDescription, bool Refinance, bool Commercial, bool Vacant, Researcher researcher)
+        public virtual OrderTemplate EditOrder(string? Street, string? Zip, string? County, string? Parcel, string? City, States? State, DateTime? ClosingDate, DateTime? NeedByDate, bool? Rush, string? AdditionalComments, string? OwnerName, string? BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, bool? Refinance, bool? Commercial, bool? Vacant, Researcher? researcher)
         {
-            if (Street != null) { this.Street = Street; }
+            this.Street = Street ?? this.Street;
+            //if (Street != null) { this.Street = Street; }
             if (Zip != null) { this.Zip = Zip; }
             if (County != null) { this.County = County; }
             if (Parcel != null) { this.Parcel = Parcel; }

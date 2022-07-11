@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -7,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static PropMockModels.Enums;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace PropMockModels
 {
@@ -35,7 +38,7 @@ namespace PropMockModels
             this.ProductType = productType;
             this.OrderStatus = OrderStatus;
         }
-        public string DisplayProductDetails()
+        public string Details()
         {
             if ((int)this.ProductType == 1 || (int)this.ProductType == 2) { return "File #: " + this.filenumber + "    Product Type: " + this.ProductType.ToString().Replace("_", " ") + "    Property Address: " + this.Lien.Street + " " + this.Lien.City + " " + this.Lien.State + ", " + this.Lien.Zip + "    Order Status:   " + this.OrderStatus; }
             else if((int)this.ProductType == 3) { return "File #: " + this.filenumber + "    Product Type: " + this.ProductType.ToString().Replace("_", " ") + "    Property Address: " + this.Estoppel.Street + " " + this.Estoppel.City + " " + this.Estoppel.State + ", " + this.Estoppel.Zip + "    Order Status:   " + this.OrderStatus; }
@@ -43,6 +46,12 @@ namespace PropMockModels
             else if ((int)this.ProductType == 7) { return "File #: " + this.filenumber + "    Product Type: " + this.ProductType.ToString().Replace("_", " ") + "    Property Address: " + this.RT.Street + " " + this.RT.City + " " + this.RT.State + ", " + this.RT.Zip + "    Order Status:   " + this.OrderStatus; }
             else if ((int)this.ProductType == 8) { return "File #: " + this.filenumber + "    Product Type: " + this.ProductType.ToString().Replace("_", " ") + "    Property Address: " + this.CS.Street + " " + this.CS.City + " " + this.CS.State + ", " + this.CS.Zip + "    Order Status:   " + this.OrderStatus; }
             else { return "Order not found!"; }
+            //if (this == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(product);
         }
 
     }

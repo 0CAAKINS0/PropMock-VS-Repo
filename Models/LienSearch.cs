@@ -38,7 +38,7 @@ namespace PropMockModels
             :base(street, zip, county, city, state, parcel, refinance, vacant, commercial, closingDate, needByDate, rush, additionalComments, ownerName, buyerName, addressTwo, legalDescription, additionalContactEmail, clientfilenumber, assignedResearcher) 
         { }
 
-        public virtual LienSearch EditOrder(string Street, string Zip, string County, string Parcel, string City, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string AdditionalComments, string OwnerName, string BuyerName, string AddressTwo, string clientNumber, string additionalContactEmail, string legalDescription, bool Refinance, bool Commercial, bool Vacant, Researcher researcher, bool? Code, bool? Permit, bool? Tax, bool? Utility, bool? SpecialAssessments)
+        public virtual LienSearch EditOrder(string? Street, string? Zip, string? County, string? Parcel, string? City, States? State, DateTime? ClosingDate, DateTime? NeedByDate, bool? Rush, string? AdditionalComments, string? OwnerName, string? BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, bool? Refinance, bool? Commercial, bool? Vacant, Researcher? researcher, bool? Code, bool? Permit, bool? Tax, bool? Utility, bool? SpecialAssessments)
         {
             var update = (LienSearch)base.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, clientNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher);
             if (Code != null) { update.Code = (bool)Code; }
