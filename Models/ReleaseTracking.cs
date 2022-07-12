@@ -33,8 +33,7 @@ namespace PropMockModels
             var update = (ReleaseTracking)base.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, clientNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher);
             this.BuyerEmail = BuyerEmail ?? this.BuyerEmail;
             this.OwnerEmail = OwnerEmail ?? this.OwnerEmail;
-            //if (BuyerEmail != null) { update.BuyerEmail = BuyerEmail; }
-            //if (OwnerEmail != null) { update.OwnerEmail = OwnerEmail; }
+
             return update;
         }
     }

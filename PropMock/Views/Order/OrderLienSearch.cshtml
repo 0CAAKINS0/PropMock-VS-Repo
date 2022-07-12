@@ -1,0 +1,166 @@
+﻿@model PropMockModels.LienSearch
+
+@{
+    ViewData["Title"] = "CreateLienSearch";
+}
+
+<h1>New Lien Search Order</h1>
+
+<h4>Product Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="OrderLienSearch">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="Street" class="control-label">Street</label>
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressTwo" class="control-label">Address Two</label>
+                <input asp-for="AddressTwo" class="form-control" />
+                <span asp-validation-for="AddressTwo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zip" class="control-label">Zip</label>
+                <input asp-for="Zip" class="form-control" />
+                <span asp-validation-for="Zip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="County" class="control-label">County</label>
+                <input asp-for="County" class="form-control" />
+                <span asp-validation-for="County" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label">City</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label">State</label>
+               <select class="form-select" asp-for="State">
+                    <option selected>State</option>
+                    <option value="1">AL</option>
+                    <option value="2">AK</option>
+                    <option value="3">AZ</option>
+                    <option value="4">AR</option>
+                    <option value="5">CA</option>
+                    <option value="6">CO</option>
+                    <option value="7">CT</option>
+                    <option value="8">DE</option>
+                    <option value="8">District of Columbia</option>
+                    <option value="8">FL</option>
+                </select>
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Parcel" class="control-label">Parcel</label>
+                <input asp-for="Parcel" class="form-control" />
+                <span asp-validation-for="Parcel" class="text-danger"></span>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <label class="custom-control-label" for="customCheck1">Refinance</label>
+                <input type="checkbox" class="custom-control-input" id="customCheck1">               
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    Vacant <input class="form-check-input" asp-for="Vacant" />
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    Commercial <input type="checkbox" class="custom-control-input" id="customCheck1">  
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClosingDate" class="control-label">Closing Date</label>
+                <input asp-for="ClosingDate" class="form-control" />
+                <span asp-validation-for="ClosingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NeedByDate" class="control-label">Need By Date</label>
+                <input asp-for="NeedByDate" class="form-control" />
+                <span asp-validation-for="NeedByDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    Rush <input type="checkbox" class="custom-control-input" id="customCheck1">  
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalComments" class="control-label">Additional Comments</label>
+                <input asp-for="AdditionalComments" class="form-control" />
+                <span asp-validation-for="AdditionalComments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OwnerName" class="control-label">Owner Name</label>
+                <input asp-for="OwnerName" class="form-control" />
+                <span asp-validation-for="OwnerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BuyerName" class="control-label">Buyer Name</label>
+                <input asp-for="BuyerName" class="form-control" />
+                <span asp-validation-for="BuyerName" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="LegalDescription" class="control-label">Legal Description</label>
+                <input asp-for="LegalDescription" class="form-control" />
+                <span asp-validation-for="LegalDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalContactEmail" class="control-label">Additional Contact Email</label>
+                <input asp-for="AdditionalContactEmail" class="form-control" />
+                <span asp-validation-for="AdditionalContactEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clientfilenumber" class="control-label">Client File Number</label>
+                <input asp-for="Clientfilenumber" class="form-control" />
+                <span asp-validation-for="Clientfilenumber" class="text-danger"></span>
+            </div>
+            <div class="form-check">               
+                <label class="form-check-label" asp-for="Code">
+                Code
+                </label>
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label" asp-for="Permit">
+                Permit
+                </label>
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label" asp-for="Tax">
+                Tax
+                </label>
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label" asp-for="Utility">
+                Utility
+                </label>
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label" asp-for="SpecialAssessments">
+                Special Assessments
+                </label>
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" onclick="OrderLienSearch()"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

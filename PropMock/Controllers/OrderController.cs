@@ -49,18 +49,21 @@ namespace PropMock.Controllers
             else { return NotFound(); }
         }
 
+        [HttpGet("NewLienSearchOrder")]
+        public IActionResult OrderLienSearch()
+        {
+            return View();
+        }
 
         //Create Lien Search Order
         [HttpPost("NewLienSearchOrder")]
         public async Task<IActionResult> OrderLienSearch(string Street, string? AddressTwo, string City, string Zip, string County, string Parcel, States State, DateTime ClosingDate, DateTime NeedByDate, bool Rush, string? AdditionalComments, string OwnerName, string? BuyerName, string? ClientFileNumber, string? additionalContactEmail, string? legalDescription, int userId, bool Code = true, bool Permit = true, bool Tax = true, bool Utility = true, bool SpecialAssessments = true, bool Refinance = false, bool Vacant = false, bool Commercial = false)
         {
             int productType = Permit ? 1 : 2;
-            //if (!Permit){ productType = 2; } else { productType = 1; }
             var product = new Product((OrderType)productType, (Status)1);
             var order = new Order(userId) { Clientfilenumber = ClientFileNumber };
-            var ls = new LienSearch(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, (DateTime)ClosingDate, (DateTime)NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0, Code, Permit, Tax, Utility, SpecialAssessments) { Product = product };
+            product.Lien = new LienSearch(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, (DateTime)ClosingDate, (DateTime)NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0, Code, Permit, Tax, Utility, SpecialAssessments) { Product = product };
 
-            product.Lien = ls;
             order.Products.Add(product);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
@@ -74,9 +77,8 @@ namespace PropMock.Controllers
         {
             var product = new Product((OrderType)3, (Status)1);
             var order = new Order(userId){ Clientfilenumber = ClientFileNumber };
-            var es = new Estoppel(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0) { Product = product };
+            product.Estoppel = new Estoppel(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0) { Product = product };
 
-            product.Estoppel = es;
             order.Products.Add(product);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
@@ -90,9 +92,8 @@ namespace PropMock.Controllers
         {
             var product = new Product((OrderType)TCType, (Status)1);
             var order = new Order(userId) { Clientfilenumber = ClientFileNumber };
-            var tc = new Tax(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0) { Product = product };
+            product.Tax = new Tax(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0) { Product = product };
 
-            product.Tax = tc;
             order.Products.Add(product);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
@@ -106,9 +107,8 @@ namespace PropMock.Controllers
         {
             var product = new Product((OrderType)7, (Status)1);
             var order = new Order(userId) { Clientfilenumber = ClientFileNumber };
-            var rt = new ReleaseTracking(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0, OwnerEmail, BuyerEmail) { Product = product };
+            product.RT = new ReleaseTracking(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0, OwnerEmail, BuyerEmail) { Product = product };
 
-            product.RT = rt;
             order.Products.Add(product);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
@@ -122,9 +122,8 @@ namespace PropMock.Controllers
         {
             var product = new Product((OrderType)8, (Status)1);
             var order = new Order(userId) { Clientfilenumber = ClientFileNumber };
-            var cs = new CurativeServices(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0, OwnerEmail, BuyerEmail) { Product = product };
+            product.CS = new CurativeServices(Street, Zip, County, City, (States)State, Parcel, Refinance, Vacant, Commercial, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, legalDescription, additionalContactEmail, ClientFileNumber, (Researcher)0, OwnerEmail, BuyerEmail) { Product = product };
 
-            product.CS = cs;
             order.Products.Add(product);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
@@ -136,7 +135,7 @@ namespace PropMock.Controllers
         [HttpPost("Edit/{filenumber}")]
         public async Task<IActionResult> UpdateOrder(int filenumber, string? Street, string? AddressTwo, string? City, string? Zip, string? County, string? Parcel, States? State, DateTime? ClosingDate, DateTime? NeedByDate, bool? Rush, string? AdditionalComments, string? OwnerName, string? BuyerName, string? ClientFileNumber, string? additionalContactEmail, string? legalDescription, bool? Code, bool? Permit, bool? Tax, bool? Utility, bool? SpecialAssessments, bool? Refinance, bool? Commercial, string? OwnerEmail, string? BuyerEmail, bool? Vacant, Researcher? researcher)
         {
-            var product = _context.Products.Include(p => p.Lien).Include(p => p.Estoppel).Include(p => p.Tax).Include(p => p.CS).Include(p => p.RT).Where(o => o.filenumber == filenumber).FirstOrDefault();
+            var product = await _context.Products.Include(p => p.Lien).Include(p => p.Estoppel).Include(p => p.Tax).Include(p => p.CS).Include(p => p.RT).Where(o => o.filenumber == filenumber).FirstOrDefaultAsync();
             if ((int)product.ProductType == 1 || (int)product.ProductType == 2)
             {
                 product.Lien = (LienSearch)product.Lien.EditOrder(Street, Zip, County, Parcel, City, State, ClosingDate, NeedByDate, Rush, AdditionalComments, OwnerName, BuyerName, AddressTwo, ClientFileNumber, additionalContactEmail, legalDescription, Refinance, Commercial, Vacant, researcher, Code, Permit, Tax, Utility, SpecialAssessments);
@@ -182,7 +181,7 @@ namespace PropMock.Controllers
         [HttpPost("CancelOrder/{filenumber}")]
         public async Task<IActionResult> Cancelorder(int filenumber)
         {
-            var product = _context.Products.Where(o => o.filenumber == filenumber).FirstOrDefault();
+            var product = await _context.Products.Where(o => o.filenumber == filenumber).FirstOrDefaultAsync();
             if (product != null)
             {
                 product.OrderStatus = 0;
@@ -197,7 +196,7 @@ namespace PropMock.Controllers
         [HttpPost("UnCancelOrder/{filenumber}")]
         public async Task<IActionResult> UnCancelorder(int filenumber)
         {
-            var product = _context.Products.Where(o => o.filenumber == filenumber).FirstOrDefault();
+            var product = await _context.Products.Where(o => o.filenumber == filenumber).FirstOrDefaultAsync();
             if(product != null)
             {
                 product.OrderStatus = (Status)1;
@@ -212,7 +211,7 @@ namespace PropMock.Controllers
         [HttpDelete("delete/{filenumber}")]
         public async Task<IActionResult> Delete(int filenumber)
         {
-            var product = _context.Products.Include(p => p.Order).Where(o => o.filenumber == filenumber).FirstOrDefault();
+            var product = await _context.Products.Include(p => p.Order).Where(o => o.filenumber == filenumber).FirstOrDefaultAsync();
             if(product != null) 
             {
                 _context.Products.Remove(product);           

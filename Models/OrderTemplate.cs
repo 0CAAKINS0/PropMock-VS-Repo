@@ -86,6 +86,10 @@ namespace PropMockModels
             this.AssignedResearcher = assignedResearcher;
 
         }
+        public List<States> StatesModel()
+        {
+            return new List<States>();
+        }
 
         public virtual OrderTemplate EditOrder(string? Street, string? Zip, string? County, string? Parcel, string? City, States? State, DateTime? ClosingDate, DateTime? NeedByDate, bool? Rush, string? AdditionalComments, string? OwnerName, string? BuyerName, string? AddressTwo, string? clientNumber, string? additionalContactEmail, string? legalDescription, bool? Refinance, bool? Commercial, bool? Vacant, Researcher? researcher)
         {
